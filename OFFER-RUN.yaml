@@ -37,8 +37,8 @@ gates:
     input: ""
     state: ""
   domain_lifecycle:
-    status: PASS
-    input: "Hostinger portfolio Active (id 33535930); DNS zone A records 216.150.1.1 and 216.150.16.1; authoritative nameservers ns1.dns-parking.com and ns2.dns-parking.com; Vercel project domain verified."
+    status: PENDING
+    input: "Hostinger portfolio Active (id 33535930); DNS zone A records 216.150.1.1 and 216.150.16.1; authoritative nameservers ns1.dns-parking.com and ns2.dns-parking.com; Vercel project domain verified. Public DoH probes returned NXDOMAIN at verification time, so TLS/custom-domain gate remains pending."
   locale_fidelity:
     status: PASS
     input: "French copy authored for the local quiz; no protected IDs, URLs, prices, or scripts supplied."
@@ -61,6 +61,7 @@ blockers:
   - "VTurb player ID, Meta pixel ID, and UTMify pixel ID are PENDING; tracking must be applied only after exact IDs are supplied."
   - "No verifiable textual checkout brief was provided; price, promise details, and payment terms were not inferred."
   - "Banco NGV offer dashboard precondition is PENDING for parent 86ak099at; offerId remains PENDING and offer-domains webhook was intentionally not called."
+  - "Public DNS/TLS for calisthenieasiatique.online is not ready yet: cache-busted public verification could not resolve the hostname; do not call it launch-ready."
 execution_control:
   budget_minutes: 45
   alert_minutes: 60
