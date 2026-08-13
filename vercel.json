@@ -1,4 +1,7 @@
 {
+  "rewrites": [
+    { "source": "/step-:step", "destination": "/index.html" }
+  ],
   "headers": [
     {
       "source": "/(.*).html",
