@@ -97,7 +97,19 @@
         .question-screen { align-items: center; }
         .question-panel .answers { width: 380px; }
       }
-      @media (min-width: 1000px) { .intro h1 { font-size: 3.25rem; } }
+      @media (min-width: 1000px) {
+        .header { min-height: 72px; }
+        .intro { padding: 45px 48px 14px; }
+        .intro-inner { width: min(100%, 960px); }
+        .intro-copy { width: 640px; flex: 0 0 640px; }
+        .intro h1 { font-size: 3.05rem; }
+        .eyebrow { margin: 22px 0 30px; }
+        .question-label { margin-bottom: 44px; }
+        .answers { gap: 16px; }
+        .answer { min-height: 83px; }
+        .intro-photo { width: 526px; flex: 0 0 526px; margin: 0 -120px -19px -54px; }
+        .legal { margin-top: 20px; }
+      }
       @media (max-width: 767px) {
         .intro { display: block; padding: 17px 16px 0; }
         .intro-inner { display: block; width: 100%; }
