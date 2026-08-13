@@ -37,8 +37,8 @@ gates:
     input: ""
     state: ""
   domain_lifecycle:
-    status: PENDING
-    input: "Hostinger portfolio Active (id 33535930); DNS zone A records 216.150.1.1 and 216.150.16.1; authoritative nameservers ns1.dns-parking.com and ns2.dns-parking.com; Vercel project domain verified. Public DoH probes returned NXDOMAIN at verification time, so TLS/custom-domain gate remains pending."
+    status: PASS
+    input: "Hostinger portfolio Active (id 33535930); DNS zone A records 216.150.1.1 and 216.150.16.1; authoritative nameservers ns1.dns-parking.com and ns2.dns-parking.com; Vercel project domain verified; custom domain resolved publicly over HTTPS."
   locale_fidelity:
     status: PASS
     input: "French copy authored for the local quiz; no protected IDs, URLs, prices, or scripts supplied."
@@ -48,7 +48,7 @@ gates:
   mobile_390x844: PASS
   desktop_1440x900: PASS
   full_funnel: PASS
-  anonymous_production: PENDING
+  anonymous_production: PASS
   checkout: BLOCKED
 evidence:
   - "2026-08-13: reference inspected once; visible flow starts with age selection and four ranges (39-45, 46-50, 51-60, 60+)."
@@ -56,12 +56,12 @@ evidence:
   - "2026-08-13: static gate passed: French lang, four age branches, no external URLs, no checkout navigation, inline JavaScript parsed, and manifest YAML parsed."
   - "2026-08-13: browser gate passed locally at 390x844 and 1440x900: no horizontal overflow, four visible age choices, and no browser errors."
   - "2026-08-13: full funnel passed locally: each age branch (39-45, 46-50, 51-60, 60+) reached the result once; CTA kept the URL local and displayed the pending checkout message."
+  - "2026-08-13: anonymous cache-busted public verification PASS on https://calisthenieasiatique.online/ (HTTP 200; Calisthénie asiatique present)."
 blockers:
   - "Checkout URL and processor were not supplied. CTA is deliberately non-navigating and shows an explicit pending state."
   - "VTurb player ID, Meta pixel ID, and UTMify pixel ID are PENDING; tracking must be applied only after exact IDs are supplied."
   - "No verifiable textual checkout brief was provided; price, promise details, and payment terms were not inferred."
   - "Banco NGV offer dashboard precondition is PENDING for parent 86ak099at; offerId remains PENDING and offer-domains webhook was intentionally not called."
-  - "Public DNS/TLS for calisthenieasiatique.online is not ready yet: cache-busted public verification could not resolve the hostname; do not call it launch-ready."
 execution_control:
   budget_minutes: 45
   alert_minutes: 60
