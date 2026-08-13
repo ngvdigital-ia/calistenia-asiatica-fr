@@ -1,0 +1,67 @@
+schema: codex-offer-run.v1
+offer: "Calistenia Asiática - FR"
+target_folder: "/home/pedro_victor/dev/NGV_Digital/workspaces/ofertas-ngv/calistenia-asiatica-fr"
+scope_lock:
+  allowed_paths:
+    - "/home/pedro_victor/dev/NGV_Digital/workspaces/ofertas-ngv/calistenia-asiatica-fr"
+  support_files: []
+  forbidden_without_new_authorization:
+    - "/home/pedro_victor/dev/NGV_Digital/workspaces/n8n-projetos"
+    - "C:\\meu-framework"
+briefing:
+  origin: "clickup"
+  task_context_input: "PENDING - snapshot codex-task-context.v2 not provided"
+  task_context_input_sha256: ""
+  clickup_parent: "86ak099at"
+  documento_principal: "https://docs.google.com/document/d/1KeZdcJlwqZVdNt4ZYTcD5KzC36DNPkmZfyqIj57B4wI/edit"
+  source_url: "https://calisteniaasiaticavslbr.lovable.app/"
+  domain: "PENDING"
+  route: "/"
+  page_type: "quiz"
+  vturb_player_id: "PENDING"
+  meta_pixel_id: "PENDING"
+  utmify_pixel_id: "PENDING"
+  checkout_url: "PENDING"
+status: "structure-ready"
+decisions:
+  - "Conversion-first; visual direction restricted by approved assumption."
+  - "The flow starts with age selection, adapted to French from the provided reference."
+  - "No competitor assets, brand identity, trackers, video IDs, checkout URL, price, or tracking IDs were copied or invented."
+  - "The final CTA intentionally reveals a pending checkout state instead of navigating."
+files_touched:
+  - "OFFER-RUN.yaml"
+  - "index.html"
+gates:
+  issue_ledger:
+    status: NOT_REQUIRED
+    input: ""
+    state: ""
+  domain_lifecycle:
+    status: NOT_REQUIRED
+    input: ""
+  locale_fidelity:
+    status: PASS
+    input: "French copy authored for the local quiz; no protected IDs, URLs, prices, or scripts supplied."
+  scope: PASS
+  static: PASS
+  tracking: PENDING
+  mobile_390x844: PASS
+  desktop_1440x900: PASS
+  full_funnel: PASS
+  anonymous_production: NOT_REQUIRED
+  checkout: BLOCKED
+evidence:
+  - "2026-08-13: reference inspected once; visible flow starts with age selection and four ranges (39-45, 46-50, 51-60, 60+)."
+  - "2026-08-13: session-preflight route=quiz passed; ClickUp-origin preflight remains blocked because no raw codex-task-context.v2 snapshot was supplied."
+  - "2026-08-13: static gate passed: French lang, four age branches, no external URLs, no checkout navigation, inline JavaScript parsed, and manifest YAML parsed."
+  - "2026-08-13: browser gate passed locally at 390x844 and 1440x900: no horizontal overflow, four visible age choices, and no browser errors."
+  - "2026-08-13: full funnel passed locally: each age branch (39-45, 46-50, 51-60, 60+) reached the result once; CTA kept the URL local and displayed the pending checkout message."
+blockers:
+  - "Checkout URL and processor were not supplied. CTA is deliberately non-navigating and shows an explicit pending state."
+  - "VTurb player ID, Meta pixel ID, and UTMify pixel ID are PENDING; tracking must be applied only after exact IDs are supplied."
+  - "No verifiable textual checkout brief was provided; price, promise details, and payment terms were not inferred."
+execution_control:
+  budget_minutes: 45
+  alert_minutes: 60
+  same_gate_failures: 0
+  interrupted_worker: false
