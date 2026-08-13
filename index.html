@@ -40,7 +40,7 @@
       (()=>{
         const A='/assets/';
         const state={ageRange:'',experience:'',goal:'',extra:[],zones:[],targetZones:[],bodyType:'',dream:'',history:'',limitations:[],comfort:'',height:165,currentWeight:73,targetWeight:57,age:50,lifestyle:'',energy:'',water:'',sleep:'',meals:[],habits:[],events:[],motivation:'',commitment:'',email:''};
-        let step=Math.max(1,Math.min(35,Number((location.pathname.match(/step-(\\d+)/)||[])[1]||new URLSearchParams(location.search).get('step')||1)));
+        let step=Math.max(1,Math.min(35,Number((location.pathname.match(/step-(\d+)/)||[])[1]||new URLSearchParams(location.search).get('step')||1)));
         let faqOpen='';
         const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
         const img=(src,alt,cls='')=>`<img class="${cls}" src="${A+src}" alt="${esc(alt)}" loading="lazy" decoding="async">`;
@@ -100,7 +100,7 @@
         function next(){step=Math.min(35,step+1);history.pushState({step},'',`/step-${step}`);render()}
         function back(){step=Math.max(1,step-1);history.pushState({step},'',step===1?'/' : `/step-${step}`);render()}
         function bind(){document.querySelectorAll('[data-range]').forEach(el=>el.addEventListener('input',()=>{state[el.dataset.range]=Number(el.value);const o=document.getElementById('range-output');if(o)o.textContent=el.value}));document.querySelectorAll('[data-action]').forEach(el=>el.addEventListener('click',()=>{const action=el.dataset.action;if(action==='next'){next();return}if(action==='back'){back();return}if(action.startsWith('age:')){state.ageRange=action.slice(4);next();return}if(action.startsWith('select:')){const [,key,val]=action.split(':');state[key]=val;next();return}if(action.startsWith('toggle:')){const [,key,val]=action.split(':');if(!Array.isArray(state[key]))state[key]=[];state[key]=state[key].includes(val)?state[key].filter(x=>x!==val):[...state[key],val];render();return}if(action.startsWith('faq:')){faqOpen=faqOpen===action.slice(4)?'':action.slice(4);render();return}if(action==='local-cta'){el.setAttribute('aria-label','Votre plan est prêt');return}}))}
-        addEventListener('popstate',()=>{step=Math.max(1,Math.min(35,Number((location.pathname.match(/step-(\\d+)/)||[])[1]||1)));render()});
+        addEventListener('popstate',()=>{step=Math.max(1,Math.min(35,Number((location.pathname.match(/step-(\d+)/)||[])[1]||1)));render()});
         render();
       })();
     </script>
