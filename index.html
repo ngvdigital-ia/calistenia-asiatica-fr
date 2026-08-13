@@ -8,273 +8,255 @@
     <meta name="ngv-vturb-player-id" content="PENDING" />
     <meta name="ngv-meta-pixel-id" content="PENDING" />
     <meta name="ngv-utmify-pixel-id" content="PENDING" />
-    <title>Calisthénie asiatique — Test personnalisé</title>
+    <title>Programme de calisthénie pour femmes</title>
     <style>
-      :root {
-        color-scheme: dark;
-        --ink: #101311;
-        --paper: #f3f1e8;
-        --fog: #b4b8ae;
-        --line: rgba(243, 241, 232, 0.18);
-        --sage: #a9c99d;
-        --sage-deep: #6e8a64;
-        --red: #efad9d;
-        --radius: 2px;
-        --ease: cubic-bezier(0.16, 1, 0.3, 1);
-      }
+      @font-face { font-family: "Anton"; font-weight: 400; src: url("assets/anton-400.ttf") format("truetype"); font-display: swap; }
+      @font-face { font-family: "Poppins"; font-weight: 400; src: url("assets/poppins-400.ttf") format("truetype"); font-display: swap; }
+      @font-face { font-family: "Poppins"; font-weight: 600; src: url("assets/poppins-600.ttf") format("truetype"); font-display: swap; }
+      @font-face { font-family: "Poppins"; font-weight: 700; src: url("assets/poppins-700.ttf") format("truetype"); font-display: swap; }
 
+      :root { --pink: #d64d7a; --ink: #1f2a3c; --muted: #717b8c; --paper: #fafafa; --card: #fff; --soft: #f5f5f5; }
       * { box-sizing: border-box; }
-      html { background: var(--ink); }
-      body {
-        min-width: 320px;
-        margin: 0;
-        background: var(--ink);
-        color: var(--paper);
-        font-family: "Arial Narrow", "Roboto Condensed", Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-      }
-      button { font: inherit; }
-      .shell {
-        position: relative;
-        display: grid;
-        min-height: 100svh;
-        overflow: hidden;
-        isolation: isolate;
-      }
-      .shell::before {
-        position: absolute;
-        inset: 0;
-        z-index: -2;
-        background:
-          linear-gradient(180deg, rgba(169, 201, 157, 0.08), transparent 36%),
-          repeating-linear-gradient(90deg, transparent 0 31px, rgba(243, 241, 232, 0.025) 32px),
-          var(--ink);
-        content: "";
-      }
-      .shell::after {
-        position: absolute;
-        right: -15vw;
-        bottom: -19vw;
-        z-index: -1;
-        width: min(70vw, 780px);
-        aspect-ratio: 1;
-        border: 1px solid rgba(169, 201, 157, 0.18);
-        border-radius: 50%;
-        box-shadow: 0 0 0 9vw rgba(169, 201, 157, 0.025), 0 0 0 18vw rgba(169, 201, 157, 0.018);
-        content: "";
-      }
-      .screen {
-        display: none;
-        width: min(100% - 40px, 1080px);
-        margin: auto;
-        padding: 28px 0 36px;
-      }
-      .screen.is-active { display: grid; }
-      .intro { align-content: center; gap: 32px; }
-      .eyebrow {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        width: fit-content;
-        margin: 0;
-        color: var(--sage);
-        font-size: 0.69rem;
-        font-weight: 700;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-      }
-      .eyebrow::before { width: 22px; height: 1px; background: currentColor; content: ""; }
+      html, body { min-width: 320px; min-height: 100%; }
+      body { margin: 0; background: var(--paper); color: var(--ink); font-family: Poppins, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+      button, a { font: inherit; }
+      button { cursor: pointer; }
+      button:focus-visible, a:focus-visible { outline: 3px solid rgba(214, 77, 122, .38); outline-offset: 3px; }
+
+      .app { display: flex; flex-direction: column; height: 100svh; overflow: hidden; }
+      .header { position: relative; display: flex; align-items: center; justify-content: center; min-height: 60px; padding: 12px 16px; background: #fff; }
+      .brand { display: flex; align-items: center; gap: 6px; margin: 0; }
+      .brand-main { color: var(--pink); font-family: Anton, Impact, sans-serif; font-size: 1.875rem; font-weight: 400; letter-spacing: .05em; line-height: 1; }
+      .brand-tag { padding: 2px 8px; border-radius: 4px; background: #f1f2f5; color: var(--muted); font-family: Poppins, Arial, sans-serif; font-size: .75rem; line-height: 1.35; }
+      .back { position: absolute; left: 16px; display: grid; width: 40px; height: 40px; place-items: center; padding: 0; border: 0; border-radius: 8px; background: transparent; color: var(--ink); font-size: 2rem; font-weight: 400; line-height: 1; }
+      .back:hover { background: var(--soft); }
+      .back[hidden] { display: none; }
+      .progress { height: 4px; background: #f0f1f3; }
+      .progress i { display: block; width: 0; height: 100%; background: var(--pink); transition: width .5s ease-out; }
+
+      main { position: relative; flex: 1; overflow-y: auto; overflow-x: hidden; }
+      .screen { display: none; min-height: 100%; animation: fade .3s ease-out both; }
+      .screen.is-active { display: flex; }
+      @keyframes fade { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
       h1, h2, p { margin: 0; }
-      h1 {
-        max-width: 15ch;
-        font-family: Georgia, "Times New Roman", serif;
-        font-size: clamp(2.55rem, 7vw, 6.5rem);
-        font-weight: 400;
-        letter-spacing: -0.055em;
-        line-height: 0.92;
+      h1, h2 { color: var(--ink); font-weight: 700; letter-spacing: -.035em; }
+      .intro { position: relative; align-items: flex-start; justify-content: center; padding: 31px 48px 20px; }
+      .intro-inner { display: flex; width: min(100%, 832px); align-items: center; gap: 24px; }
+      .intro-copy { z-index: 1; width: 512px; text-align: center; }
+      .intro h1 { font-size: clamp(2rem, 4vw, 3.05rem); line-height: 1; }
+      .intro h1 span { color: var(--pink); }
+      .eyebrow { margin: 19px 0 29px; color: var(--muted); font-size: 1rem; font-weight: 400; letter-spacing: -.02em; text-transform: uppercase; }
+      .question-label { margin-bottom: 32px; font-size: 1.08rem; font-weight: 700; }
+      .answers { display: grid; gap: 12px; }
+      .answer { display: flex; width: 100%; min-height: 68px; align-items: center; justify-content: space-between; padding: 16px 24px; border: 0; border-radius: 17px; background: var(--soft); color: var(--ink); font-size: 1rem; font-weight: 700; text-align: left; transition: background .16s ease, box-shadow .16s ease, transform .16s ease; }
+      .answer::after { color: #778293; content: "→"; font-size: 1.55rem; font-weight: 400; }
+      .answer:hover { background: #efeff0; box-shadow: 0 3px 10px rgba(25, 38, 57, .08); transform: translateY(-1px); }
+      .intro-photo { align-self: end; width: 345px; min-width: 0; margin: 0 -77px -19px -15px; }
+      .intro-photo img { display: block; width: 100%; height: auto; }
+      .legal { max-width: 480px; margin: 24px auto 0; color: var(--muted); font-size: .65rem; font-weight: 400; line-height: 1.45; }
+      .legal a { color: inherit; text-decoration: underline; }
+
+      .center-screen { align-items: center; justify-content: center; padding: 32px 24px; }
+      .panel { width: min(100%, 448px); text-align: center; }
+      .panel-image { display: block; width: 100%; aspect-ratio: 1.54; object-fit: cover; border-radius: 22px; }
+      .panel h2 { margin: 25px 0 12px; font-size: 1.78rem; line-height: 1.08; }
+      .panel-copy { color: var(--muted); font-size: .98rem; font-weight: 400; line-height: 1.5; }
+      .continue { display: flex; width: 100%; min-height: 57px; align-items: center; justify-content: center; margin-top: 32px; padding: 14px 20px; border: 0; border-radius: 16px; background: var(--pink); color: #fff; font-size: 1rem; font-weight: 700; transition: background .16s ease, transform .16s ease; }
+      .continue:hover { background: #bf3869; transform: translateY(-1px); }
+
+      .question-screen { position: relative; align-items: flex-start; justify-content: center; padding: 31px 24px; overflow: hidden; }
+      .question-panel { z-index: 1; width: min(100%, 610px); text-align: center; }
+      .question-panel h2 { margin: 0 auto; font-size: clamp(1.65rem, 3.4vw, 2.22rem); line-height: 1.14; }
+      .question-panel .answers { width: 252px; margin: 29px auto 0; text-align: left; }
+      .question-panel .answer { min-height: 60px; background: var(--card); box-shadow: 0 3px 12px rgba(24, 36, 53, .10); }
+      .question-panel .answer::after { display: none; }
+      .question-photo { position: absolute; right: max(-40px, calc(50% - 460px)); bottom: -42px; width: 335px; pointer-events: none; }
+      .question-photo img { display: block; width: 100%; }
+
+      .explain { position: relative; align-items: center; justify-content: center; padding: 32px 48px 96px; }
+      .explain-inner { display: flex; width: min(100%, 1024px); align-items: center; gap: 48px; }
+      .explain-copy { flex: 1; text-align: left; }
+      .explain h2 { margin-bottom: 23px; font-size: clamp(1.72rem, 3.2vw, 2.28rem); line-height: 1.22; }
+      .explain-photo { width: 50%; flex: 0 0 50%; }
+      .explain-photo img { display: block; width: 100%; border-radius: 22px; }
+      .fixed-action { position: absolute; right: 0; bottom: 0; left: 0; padding: 16px 24px; background: linear-gradient(transparent, var(--paper) 28%); }
+      .fixed-action .continue { width: min(100%, 448px); margin: 0 auto; border-radius: 11px; text-transform: uppercase; }
+
+      .result { align-items: center; justify-content: center; padding: 32px 24px; }
+      .result .panel { width: min(100%, 448px); }
+      .result-label { color: var(--pink); font-size: .75rem; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; }
+      .profile { display: flex; flex-wrap: wrap; justify-content: center; gap: 7px; margin: 16px auto 5px; }
+      .profile span { padding: 5px 10px; border-radius: 999px; background: #f9e2eb; color: var(--pink); font-size: .74rem; font-weight: 700; }
+      .pending { min-height: 20px; margin-top: 12px; color: #b42e62; font-size: .8rem; line-height: 1.4; }
+
+      @media (min-width: 768px) {
+        .intro { padding-top: 35px; }
+        .intro h1 { font-size: 3.05rem; }
+        .panel h2 { font-size: 1.8rem; }
+        .question-screen { align-items: center; }
+        .question-panel .answers { width: 380px; }
       }
-      h1 em { color: var(--sage); font-style: italic; }
-      .intro-copy { display: grid; gap: 8px; max-width: 46ch; color: var(--fog); font-size: 1rem; line-height: 1.45; }
-      .intro-copy strong { color: var(--paper); font-size: 1.1rem; font-weight: 500; }
-      .age-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        border-top: 1px solid var(--line);
-        border-left: 1px solid var(--line);
+      @media (min-width: 1000px) { .intro h1 { font-size: 3.25rem; } }
+      @media (max-width: 767px) {
+        .intro { display: block; padding: 17px 16px 0; }
+        .intro-inner { display: block; width: 100%; }
+        .intro-copy { width: 100%; }
+        .intro h1 { max-width: 365px; margin: 0 auto; font-size: 1.9rem; line-height: 1.03; }
+        .eyebrow { margin: 13px 0 19px; font-size: .88rem; }
+        .question-label { margin-bottom: 25px; font-size: 1rem; }
+        .answer { min-height: 56px; padding: 13px 20px; }
+        .intro-photo { position: absolute; right: -46px; bottom: 179px; width: 330px; margin: 0; pointer-events: none; }
+        .legal { position: absolute; z-index: 1; right: 28px; bottom: 15px; left: 28px; max-width: 325px; margin: 0 auto; }
+        .center-screen { align-items: flex-start; padding: 10px 16px 22px; }
+        .panel { width: min(100%, 358px); }
+        .panel-image { margin-top: 0; border-radius: 18px; }
+        .panel h2 { margin-top: 25px; font-size: 1.65rem; line-height: 1.13; }
+        .panel-copy { font-size: .96rem; }
+        .continue { margin-top: 31px; }
+        .question-screen { padding: 28px 24px; }
+        .question-panel { align-self: flex-start; }
+        .question-panel h2 { max-width: 324px; font-size: 1.42rem; line-height: 1.18; }
+        .question-panel .answers { width: 206px; margin: 27px 0 0; }
+        .question-photo { right: -66px; bottom: -17px; width: 334px; }
+        .explain { align-items: flex-start; padding: 13px 24px 92px; }
+        .explain-inner { display: block; width: 100%; }
+        .explain-copy { text-align: center; }
+        .explain h2 { margin: 0 auto 13px; font-size: 1.43rem; line-height: 1.2; }
+        .explain-photo { width: 100%; margin-top: 19px; }
+        .explain-photo img { border-radius: 20px; }
+        .fixed-action { padding: 16px 24px; }
+        .result { align-items: flex-start; padding: 51px 24px 24px; }
+        .result .panel h2 { font-size: 1.72rem; }
       }
-      .age-choice {
-        display: grid;
-        min-height: 178px;
-        padding: 18px;
-        border: 0;
-        border-right: 1px solid var(--line);
-        border-bottom: 1px solid var(--line);
-        background: rgba(16, 19, 17, 0.25);
-        color: var(--paper);
-        cursor: pointer;
-        text-align: left;
-        transition: background 180ms var(--ease), color 180ms var(--ease), transform 180ms var(--ease);
-      }
-      .age-choice span { align-self: start; color: var(--sage); font-size: 0.66rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
-      .age-choice b { align-self: end; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2.4rem, 4.8vw, 4.8rem); font-weight: 400; letter-spacing: -0.07em; line-height: 0.85; }
-      .age-choice:hover, .age-choice:focus-visible { background: var(--sage); color: var(--ink); outline: none; transform: translateY(-4px); }
-      .age-choice:hover span, .age-choice:focus-visible span { color: var(--ink); }
-      .quiz { align-content: center; gap: 28px; max-width: 700px; }
-      .progress { display: flex; align-items: center; gap: 12px; color: var(--fog); font-size: 0.72rem; letter-spacing: 0.11em; text-transform: uppercase; }
-      .progress-track { position: relative; flex: 1; height: 1px; background: var(--line); }
-      .progress-track i { position: absolute; inset: 0 auto 0 0; width: 33.333%; background: var(--sage); transition: width 320ms var(--ease); }
-      .question-kicker { color: var(--sage); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.17em; text-transform: uppercase; }
-      h2 { max-width: 18ch; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2.15rem, 5vw, 4.4rem); font-weight: 400; letter-spacing: -0.052em; line-height: 0.96; }
-      .answer-list { display: grid; gap: 8px; }
-      .answer {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        min-height: 61px;
-        padding: 14px 16px;
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        background: transparent;
-        color: var(--paper);
-        cursor: pointer;
-        font-size: 1rem;
-        text-align: left;
-        transition: border-color 160ms var(--ease), background 160ms var(--ease), color 160ms var(--ease);
-      }
-      .answer::after { color: var(--sage); content: "↗"; font-size: 1.1rem; }
-      .answer:hover, .answer:focus-visible { border-color: var(--sage); background: rgba(169, 201, 157, 0.12); outline: none; }
-      .back { width: fit-content; padding: 0; border: 0; background: transparent; color: var(--fog); cursor: pointer; font-size: 0.78rem; letter-spacing: 0.08em; text-decoration: underline; text-underline-offset: 4px; text-transform: uppercase; }
-      .result { align-content: center; gap: 27px; max-width: 730px; }
-      .result-card { display: grid; gap: 20px; padding: clamp(24px, 5vw, 48px); border: 1px solid var(--sage-deep); background: rgba(169, 201, 157, 0.08); }
-      .result-card h2 { max-width: 14ch; }
-      .result-card p { max-width: 55ch; color: var(--fog); line-height: 1.5; }
-      .profile-line { display: flex; flex-wrap: wrap; gap: 8px 20px; color: var(--sage); font-size: 0.76rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
-      .cta { display: inline-flex; align-items: center; justify-content: space-between; min-height: 58px; padding: 14px 17px; border: 1px solid var(--sage); border-radius: var(--radius); background: var(--sage); color: var(--ink); cursor: pointer; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.08em; text-align: left; text-transform: uppercase; transition: background 160ms var(--ease), color 160ms var(--ease); }
-      .cta:hover, .cta:focus-visible { background: transparent; color: var(--sage); outline: none; }
-      .pending { min-height: 1.5em; color: var(--red); font-size: 0.82rem; line-height: 1.35; }
-      .disclosure { color: var(--fog); font-size: 0.7rem; line-height: 1.45; }
-      .screen[aria-busy="true"] { opacity: 0.8; }
-      @media (max-width: 680px) {
-        .screen { width: min(100% - 32px, 1080px); padding: 24px 0; }
-        .intro { gap: 24px; }
-        .age-grid { grid-template-columns: repeat(2, 1fr); }
-        .age-choice { min-height: 146px; padding: 15px; }
-      }
-      @media (max-width: 390px) {
-        h1 { font-size: 2.45rem; }
-        .age-choice b { font-size: 2.6rem; }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
-      }
+      @media (max-width: 380px) { .brand-main { font-size: 1.7rem; } .brand-tag { padding-inline: 6px; } }
+      @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; scroll-behavior: auto !important; transition-duration: .01ms !important; } }
     </style>
   </head>
   <body>
-    <main class="shell">
-      <section class="screen intro is-active" data-screen="intro" aria-labelledby="intro-title">
-        <p class="eyebrow">Calisthénie asiatique</p>
-        <h1 id="intro-title">Un mouvement pensé <em>pour votre corps.</em></h1>
-        <div class="intro-copy">
-          <p>Programme de calisthénie asiatique pour femmes, adapté à votre rythme actuel.</p>
-          <strong>Selon votre âge</strong>
-          <p>Test rapide · environ 1 minute</p>
-        </div>
-        <div class="age-grid" role="group" aria-label="Choisissez votre âge">
-          <button class="age-choice" type="button" data-age="39–45"><span>Votre âge</span><b>39–45</b></button>
-          <button class="age-choice" type="button" data-age="46–50"><span>Votre âge</span><b>46–50</b></button>
-          <button class="age-choice" type="button" data-age="51–60"><span>Votre âge</span><b>51–60</b></button>
-          <button class="age-choice" type="button" data-age="60+"><span>Votre âge</span><b>60+</b></button>
-        </div>
-        <p class="disclosure">En continuant, vous reconnaissez que la disponibilité du programme et des modalités de commande doivent encore être confirmées.</p>
-      </section>
+    <div class="app">
+      <header class="header">
+        <button class="back" id="back" type="button" aria-label="Revenir à l’étape précédente" hidden>‹</button>
+        <p class="brand"><span class="brand-main">Calisthénie</span><span class="brand-tag">par Atlas</span></p>
+      </header>
+      <div class="progress" aria-hidden="true"><i id="progress-bar"></i></div>
+      <main>
+        <section class="screen intro is-active" data-screen="intro" aria-labelledby="intro-title">
+          <div class="intro-inner">
+            <div class="intro-copy">
+              <h1 id="intro-title">Programme de Calisthénie Asiatique <span>pour femmes</span></h1>
+              <p class="eyebrow">Test d’une minute</p>
+              <p class="question-label">Quel âge avez-vous&nbsp;?</p>
+              <div class="answers" role="group" aria-label="Choisissez votre âge">
+                <button class="answer age-choice" type="button" data-age="39 – 45">39 – 45</button>
+                <button class="answer age-choice" type="button" data-age="46 – 50">46 – 50</button>
+                <button class="answer age-choice" type="button" data-age="51 – 60">51 – 60</button>
+                <button class="answer age-choice" type="button" data-age="60+">60+</button>
+              </div>
+              <p class="legal">En sélectionnant votre âge et en continuant, vous acceptez nos <a href="#conditions">conditions d’utilisation</a>, notre <a href="#confidentialite">politique de confidentialité</a> et notre <a href="#cookies">politique de cookies</a>.</p>
+            </div>
+            <div class="intro-photo"><img src="assets/asian-woman-fitness.webp" alt="Femme pratiquant la calisthénie" /></div>
+          </div>
+        </section>
 
-      <section class="screen quiz" data-screen="quiz" aria-live="polite" aria-labelledby="question-title">
-        <div class="progress"><span id="step-label">Question 1 sur 3</span><span class="progress-track"><i id="progress-bar"></i></span></div>
-        <p class="question-kicker" id="question-kicker">Votre objectif</p>
-        <h2 id="question-title"></h2>
-        <div class="answer-list" id="answer-list"></div>
-        <button class="back" id="back-button" type="button">Retour</button>
-      </section>
+        <section class="screen center-screen" data-screen="story" aria-labelledby="story-title" hidden inert>
+          <div class="panel">
+            <img class="panel-image" src="assets/women-group.webp" alt="Groupe de femmes pratiquant des exercices" />
+            <h2 id="story-title">Elles y sont arrivées, vous le pouvez aussi.</h2>
+            <p class="panel-copy">Des femmes de tous âges transforment progressivement leur quotidien grâce à la calisthénie asiatique.</p>
+            <button class="continue" type="button" data-next="question">Continuer</button>
+          </div>
+        </section>
 
-      <section class="screen result" data-screen="result" aria-live="polite" aria-labelledby="result-title">
-        <p class="eyebrow">Votre orientation</p>
-        <div class="result-card">
-          <div class="profile-line" id="profile-line"></div>
-          <h2 id="result-title">Votre parcours personnalisé est prêt.</h2>
-          <p>Nous avons retenu une approche progressive, centrée sur la mobilité, la force au poids du corps et une cadence réaliste pour votre quotidien.</p>
-          <button class="cta" id="pending-cta" type="button">Voir le programme quand il sera disponible <span>↗</span></button>
-          <p class="pending" id="pending-message" role="status"></p>
-        </div>
-        <button class="back" id="result-back" type="button">Modifier mes réponses</button>
-      </section>
-    </main>
+        <section class="screen question-screen" data-screen="question" aria-labelledby="experience-title" hidden inert>
+          <div class="question-panel">
+            <h2 id="experience-title">Avez-vous déjà essayé des exercices de calisthénie&nbsp;?</h2>
+            <div class="answers" role="group" aria-label="Expérience de calisthénie">
+              <button class="answer experience" type="button" data-experience="Déjà essayé">Oui</button>
+              <button class="answer experience" type="button" data-experience="Débutante">Non</button>
+            </div>
+          </div>
+          <div class="question-photo" aria-hidden="true"><img src="assets/asian-woman-fitness.webp" alt="" /></div>
+        </section>
+
+        <section class="screen explain" data-screen="explain" aria-labelledby="explain-title" hidden inert>
+          <div class="explain-inner">
+            <div class="explain-copy">
+              <h2 id="explain-title">Vous avez votre point de départ&nbsp;: la calisthénie asiatique vous aide à avancer progressivement.</h2>
+              <p class="panel-copy">L’approche associe mobilité, force au poids du corps et régularité. Elle s’adapte à votre rythme pour vous aider à retrouver confiance dans vos mouvements.</p>
+            </div>
+            <div class="explain-photo"><img src="assets/woman-couch-exercise.webp" alt="Femme pratiquant un exercice" /></div>
+          </div>
+          <div class="fixed-action"><button class="continue" type="button" data-next="result">Continuer</button></div>
+        </section>
+
+        <section class="screen result" data-screen="result" aria-labelledby="result-title" hidden inert>
+          <div class="panel">
+            <p class="result-label">Votre parcours</p>
+            <div class="profile" id="profile" aria-label="Vos réponses"></div>
+            <h2 id="result-title">Votre orientation personnalisée est prête.</h2>
+            <p class="panel-copy">Nous avons retenu un parcours progressif pour retrouver mobilité, force et régularité à votre rythme.</p>
+            <button class="continue" id="pending-cta" type="button">Découvrir le programme</button>
+            <p class="pending" id="pending-message" role="status"></p>
+          </div>
+        </section>
+      </main>
+    </div>
     <script>
       (() => {
-        const questions = [
-          { kicker: "Votre objectif", title: "Qu’aimeriez-vous ressentir dans votre corps ?", answers: ["Plus de tonicité au quotidien", "Me sentir plus légère et mobile", "Retrouver de la force", "Installer une routine durable"] },
-          { kicker: "Votre rythme", title: "Quel temps pouvez-vous vous accorder chaque semaine ?", answers: ["10 minutes, trois fois par semaine", "20 minutes, trois fois par semaine", "30 minutes ou plus, à mon rythme"] },
-          { kicker: "Votre point de départ", title: "Qu’est-ce qui compte le plus pour vous maintenant ?", answers: ["Bouger sans me brusquer", "Renforcer ma posture", "Garder de la régularité"] }
-        ];
-        const answers = {};
-        let step = 0;
-        const screens = Object.fromEntries([...document.querySelectorAll("[data-screen]")].map((el) => [el.dataset.screen, el]));
-        const questionTitle = document.querySelector("#question-title");
-        const answerList = document.querySelector("#answer-list");
-        const questionKicker = document.querySelector("#question-kicker");
-        const stepLabel = document.querySelector("#step-label");
-        const progressBar = document.querySelector("#progress-bar");
-        const profileLine = document.querySelector("#profile-line");
+        const history = [];
+        const answers = { age: "", experience: "" };
+        const order = ["intro", "story", "question", "explain", "result"];
+        const screens = Object.fromEntries([...document.querySelectorAll("[data-screen]")].map((screen) => [screen.dataset.screen, screen]));
+        const back = document.querySelector("#back");
+        const content = document.querySelector("main");
+        const progress = document.querySelector("#progress-bar");
+        const profile = document.querySelector("#profile");
 
-        function show(name) {
-          Object.entries(screens).forEach(([screenName, element]) => element.classList.toggle("is-active", screenName === name));
-        }
-        function renderQuestion() {
-          const question = questions[step];
-          questionKicker.textContent = question.kicker;
-          questionTitle.textContent = question.title;
-          stepLabel.textContent = `Question ${step + 1} sur ${questions.length}`;
-          progressBar.style.width = `${((step + 1) / questions.length) * 100}%`;
-          answerList.replaceChildren(...question.answers.map((answer) => {
-            const button = document.createElement("button");
-            button.type = "button";
-            button.className = "answer";
-            button.textContent = answer;
-            button.dataset.answer = answer;
-            button.addEventListener("click", () => {
-              answers[step] = answer;
-              if (step < questions.length - 1) { step += 1; renderQuestion(); return; }
-              renderResult();
-              show("result");
+        function show(name, push = true) {
+          const current = Object.entries(screens).find(([, screen]) => screen.classList.contains("is-active"))?.[0];
+          if (push && current && current !== name) history.push(current);
+          Object.entries(screens).forEach(([key, screen]) => {
+            screen.hidden = key !== name;
+            screen.inert = key !== name;
+            screen.classList.toggle("is-active", key === name);
+          });
+          content.scrollTop = 0;
+          back.hidden = name === "intro";
+          progress.style.width = `${(order.indexOf(name) / (order.length - 1)) * 100}%`;
+          if (name === "result") {
+            profile.replaceChildren();
+            [answers.age, answers.experience].filter(Boolean).forEach((answer) => {
+              const item = document.createElement("span");
+              item.textContent = answer;
+              profile.append(item);
             });
-            return button;
-          }));
-        }
-        function renderResult() {
-          profileLine.replaceChildren();
-          [answers.age, answers[0], answers[1]].filter(Boolean).forEach((value) => {
-            const item = document.createElement("span");
-            item.textContent = value;
-            profileLine.append(item);
+          }
+          requestAnimationFrame(() => {
+            content.scrollTop = 0;
+            const heading = screens[name].querySelector("h1, h2");
+            if (heading) {
+              heading.tabIndex = -1;
+              heading.focus({ preventScroll: true });
+            }
           });
         }
-        document.querySelectorAll("[data-age]").forEach((button) => button.addEventListener("click", () => {
+
+        document.querySelectorAll(".age-choice").forEach((button) => button.addEventListener("click", () => {
           answers.age = button.dataset.age;
-          step = 0;
-          renderQuestion();
-          show("quiz");
+          show("story");
         }));
-        document.querySelector("#back-button").addEventListener("click", () => {
-          if (step === 0) { show("intro"); return; }
-          step -= 1;
-          renderQuestion();
-        });
-        document.querySelector("#result-back").addEventListener("click", () => {
-          step = questions.length - 1;
-          renderQuestion();
-          show("quiz");
+        document.querySelectorAll("[data-next]").forEach((button) => button.addEventListener("click", () => show(button.dataset.next)));
+        document.querySelectorAll(".experience").forEach((button) => button.addEventListener("click", () => {
+          answers.experience = button.dataset.experience;
+          show("explain");
+        }));
+        back.addEventListener("click", () => {
+          const previous = history.pop();
+          if (previous) show(previous, false);
         });
         document.querySelector("#pending-cta").addEventListener("click", () => {
-          document.querySelector("#pending-message").textContent = "Le lien de commande n’est pas encore confirmé. Aucun achat ni redirection n’a été lancé.";
+          document.querySelector("#pending-message").textContent = "Le checkout est encore en attente de confirmation. Aucun achat ni redirection n’a été lancé.";
         });
       })();
     </script>
